@@ -1,16 +1,12 @@
-# practice_app
+# De figma, dribbble, behance a flutter
 
-A new Flutter project.
+Bienvenido, en este repositorio iré colocando diferentes aplicaciones hechas con flutter, sin beneficio alguno
+solo apoyando con una estrella al repositorio. Si ven la primera pantalla con botones, tranquilos, ahi iré
+colocando todas las aplicaciones que iré haciendo, lo único que tienen que hacer es verificar siempre los commits
+que hago, y solo actualizar el repositorio!
 
-## Getting Started
+## 3D APP - Figma Community Design
 
-This project is a starting point for a Flutter application.
+Aplicación móvil de estilo 3d, enfocado en el diseño adaptable y responsive.
+![ScreenShot](/screenshots/1.jpeg)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
