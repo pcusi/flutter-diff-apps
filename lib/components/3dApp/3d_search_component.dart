@@ -1,0 +1,323 @@
+import 'package:flutter/material.dart';
+import 'package:practice_app/components/3dApp/3d_main_component.dart';
+import 'package:practice_app/components/3dApp/widgets/3d_brand.dart';
+import 'package:practice_app/constants/3d_constants/3d_brands.dart';
+import 'package:practice_app/constants/3d_constants/3d_theme.dart';
+import 'package:practice_app/shared/3dAppIcons/woo_icons.dart';
+import 'package:practice_app/shared/text.dart';
+
+class SearchAugmentedComponent extends StatefulWidget {
+  SearchAugmentedComponent({Key? key}) : super(key: key);
+
+  @override
+  _SearchAugmentedComponentState createState() =>
+      _SearchAugmentedComponentState();
+}
+
+class _SearchAugmentedComponentState extends State<SearchAugmentedComponent> {
+  int indexSelected = 0;
+  double paddingSearch = 0.0;
+  double brandHeight = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(builder: (_, constraints) {
+          if (constraints.maxHeight < 700) {
+            paddingSearch = 21.0;
+            brandHeight = size.height * .09;
+          } else {
+            paddingSearch = 22.0;
+            brandHeight = size.height * .078;
+          }
+
+          return Container(
+            width: size.width,
+            constraints: BoxConstraints(
+              maxHeight: constraints.maxHeight,
+            ),
+            padding: EdgeInsets.only(
+              left: size.width * .05,
+              top: size.width * .05,
+            ),
+            decoration: BoxDecoration(color: AugmentedTheme.kWhite),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //Back button
+                  Container(
+                    width: size.width,
+                    height: size.height * .10,
+                    margin: EdgeInsets.only(
+                      right: size.width * .05,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            AugmentedWoo.back,
+                            color: AugmentedTheme.kBlack,
+                            size: 32.0,
+                          ),
+                        ),
+                        SizedBox(width: 24.0),
+                        TextGlobal(
+                          value: 'Search',
+                          fontSize: size.height * .04,
+                          fontFamily: 'DMSans',
+                          fontColor: AugmentedTheme.kBlack,
+                          fontWeight: FontWeight.w500,
+                          lineHeight: 2.0,
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * .025),
+                  Container(
+                    width: size.width,
+                    height: size.height * .1,
+                    padding: EdgeInsets.only(right: size.width * .05),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: size.width * .65,
+                          height: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 28.0, vertical: paddingSearch),
+                          decoration: BoxDecoration(
+                            color: AugmentedTheme.kPurpleMain.withOpacity(.07),
+                            border: Border.all(
+                              color:
+                                  AugmentedTheme.kPurpleMain.withOpacity(.09),
+                            ),
+                            borderRadius: BorderRadius.circular(22.0),
+                          ),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: TextGlobal(
+                              value: 'Search',
+                              fontSize: size.height * .027,
+                              fontFamily: 'Inter',
+                              fontColor: AugmentedTheme.kBlack.withOpacity(.5),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          width: size.width * .2,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AugmentedTheme.kPurpleMain,
+                            borderRadius: BorderRadius.circular(22.0),
+                          ),
+                          child: Icon(
+                            AugmentedWoo.search,
+                            color: AugmentedTheme.kWhite,
+                            size: 36.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: size.height * .035),
+                  //Brands horizontal
+                  Container(
+                    height: brandHeight,
+                    child: ListView.builder(
+                      itemCount: AugmentedBrands.brandsSearch.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (_, index) {
+                        final brands = AugmentedBrands.brandsSearch[index];
+                        return BrandAugmentedWidget(
+                          onTap: () {
+                            setState(() {
+                              indexSelected = index;
+                            });
+                          },
+                          containerColor: indexSelected == index
+                              ? AugmentedTheme.kPurpleMain
+                              : AugmentedTheme.kPurpleMain.withOpacity(.1),
+                          fontColor: indexSelected == index
+                              ? AugmentedTheme.kWhite
+                              : AugmentedTheme.kBlack.withOpacity(.65),
+                          value: '${brands.name}',
+                          fontSize: size.height * .023,
+                          heightSize: double.infinity,
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: size.height * .035),
+                  //Assets container
+                  Container(
+                    width: constraints.maxWidth,
+                    height: size.height,
+                    constraints: BoxConstraints(
+                      maxHeight: constraints.maxHeight * .85,
+                    ),
+                    margin: EdgeInsets.only(
+                      right: size.width * .05,
+                    ),
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: size.width * .47,
+                          height: size.height * .4,
+                          padding: EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100.0),
+                            color: AugmentedTheme.kPurpleMain.withOpacity(.17),
+                            border: Border.all(
+                              color: AugmentedTheme.kBlack.withOpacity(.04),
+                            ),
+                          ),
+                          child: Image(
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            image: AssetImage('assets/img/3d_1.png'),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            width: size.width * .42,
+                            height: size.height * .195,
+                            padding: EdgeInsets.all(16.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90.0),
+                              color: AugmentedTheme.kSky,
+                              border: Border.all(
+                                color: AugmentedTheme.kBlack.withOpacity(.04),
+                              ),
+                            ),
+                            child: Image(
+                                fit: BoxFit.contain,
+                                image: AssetImage('assets/img/3d_3.png')),
+                          ),
+                        ),
+                        Positioned(
+                          top: size.height * .225,
+                          right: -size.width * .02,
+                          child: Container(
+                            width: size.width * .45,
+                            height: size.height * .35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(126.0),
+                                topRight: Radius.circular(9.0),
+                                bottomLeft: Radius.circular(9.0),
+                                bottomRight: Radius.circular(9.0),
+                              ),
+                              color: AugmentedTheme.kPink.withOpacity(.28),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: -size.height * .08,
+                                  left: -size.width * .02,
+                                  child: Image(
+                                    width: size.width * .65,
+                                    height: size.height * .5,
+                                    image: AssetImage('assets/img/3d_2.png'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: size.height * .42,
+                          left: 0,
+                          child: Container(
+                            width: size.width * .45,
+                            height: size.height * .35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(9.0),
+                                topRight: Radius.circular(126.0),
+                                bottomLeft: Radius.circular(9.0),
+                                bottomRight: Radius.circular(9.0),
+                              ),
+                              color: AugmentedTheme.kBrown.withOpacity(.11),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: -size.height * .02,
+                                  left: -size.height * .01,
+                                  child: Image(
+                                    width: size.width * .45,
+                                    height: size.height * .5,
+                                    image: AssetImage('assets/img/3d_4.png'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }),
+      ),
+      bottomNavigationBar: Container(
+        width: size.width,
+        height: size.height * .05,
+        margin: EdgeInsets.all(size.width * .05),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => MainAugmentedComponent()));
+              },
+              child: Icon(
+                AugmentedWoo.home,
+                color: AugmentedTheme.kPurpleMain.withOpacity(.35),
+                size: 36.0,
+              ),
+            ),
+            Icon(
+              AugmentedWoo.search,
+              color: AugmentedTheme.kPurpleMain,
+              size: 36.0,
+            ),
+            Icon(
+              AugmentedWoo.flag,
+              color: AugmentedTheme.kPurpleMain.withOpacity(.35),
+              size: 36.0,
+            ),
+            Container(
+              width: 36.0,
+              height: 36.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: AugmentedTheme.kPurpleMain, width: 3.0),
+              ),
+              child: Image(
+                image: AssetImage('assets/img/avatar.png'),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
