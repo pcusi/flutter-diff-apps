@@ -8,5 +8,4 @@ que hago, y solo actualizar el repositorio!
 ## 3D APP - Figma Community Design
 
 Aplicación móvil de estilo 3d, enfocado en el diseño adaptable y responsive.
-![ScreenShot](/screenshots/1.jpeg)
-
+![test image size](/screenshots/1.jpeg){:height="50%" width="50%"}
